@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = Chefdore::VERSION
   spec.authors       = ["Jason Barnett"]
   spec.email         = ["jason.w.barnett@gmail.com"]
-  spec.summary       = %q{TODO: Write a short summary. Required.}
-  spec.description   = %q{TODO: Write a longer description. Optional.}
+  spec.summary       = %q{Chef tool that was named after Dumbledore.}
+  spec.description   = %q{Chef tool that can be used to do some helpful things.}
   spec.homepage      = "https://github.com/jasonwbarnett/chefdore"
   spec.license       = "MIT"
 
