@@ -1,3 +1,4 @@
+require "chefdore/utils"
 require "chefdore/version"
 
 module Chefdore
