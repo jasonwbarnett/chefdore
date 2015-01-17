@@ -6,7 +6,13 @@ module Chefdore
           convert(subval, prefix, path+[subkey])
         end
       elsif value.is_a?(Array)
-        puts "#{prefix}#{path.map{|p| "['#{p}']"}.join('')} = #{value}"
+        value.each do |i|
+          if i.is_a?(Hash)
+            convert(i, prefix, path)
+          else
+            puts "#{prefix}#{path.map{|p| "['#{p}']"}.join('')} = #{value}"
+          end
+        end
       else
         puts "#{prefix}#{path.map{|p| "['#{p}']"}.join('')} = '#{value}'"
       end
