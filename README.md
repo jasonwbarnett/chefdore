@@ -21,7 +21,14 @@ $ knife role show example_role --format json
   "description": "Chef-server example role",
   "json_class": "Chef::Role",
   "default_attributes": {
-
+    "ntp": {
+      "servers": [
+        "0.pool.ntp.org",
+        "1.pool.ntp.org",
+        "2.pool.ntp.org",
+        "3.pool.ntp.org"
+      ]
+    }
   },
   "override_attributes": {
     "developer_mode": false,
@@ -99,6 +106,7 @@ All we have to do is pipe that output into our little command line client:
 
 ```bash
 $ knife role show example_role --format json | chefdore convert
+default["ntp"]["servers"] = ["0.pool.ntp.org", "1.pool.ntp.org", "2.pool.ntp.org", "3.pool.ntp.org"]
 override["developer_mode"] = false
 override["monitoring"]["metric_provider"] = "collectd"
 override["monitoring"]["procmon_provider"] = "monit"
