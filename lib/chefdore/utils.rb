@@ -5,36 +5,40 @@ module Chefdore
   class Magic
 
 
-    def self.convert_attr(value={}, prefix="default", path=[])
+    def self.convert_attr(opts = {})
+      value  = opts[:value]
+      prefix = opts[:prefix] ? opts[:prefix] : "default"
+      path   = opts[:path]   ? opts[:path]   : []
+      cli    = opts[:cli]    ? opts[:cli]    : Chefdore::Cli.new
+
       #puts "INFO :: #{value.inspect} (#{value.class}) -- #{prefix} -- #{path}"
 
       if value.is_a?(Hash)
         value.each do |subkey, subval|
-          convert_attr(subval, prefix, path+[subkey])
+          convert_attr(opts.merge(value: subval, path: path+[subkey]))
         end
-      elsif value.is_a?(Array)
-        value.each do |i|
-          if i.is_a?(Hash)
-            convert_attr(i, prefix, path)
-            value.delete i
-          end
+      elsif value.is_a?(Array) && cli.options[:append_arrays]
+        puts "#{prefix}#{path.map{|p| "[#{p.inspect}]"}.join('')} = #{Array.new.inspect}"
+        value.each do |x|
+          puts "#{prefix}#{path.map{|p| "[#{p.inspect}]"}.join('')} << #{x.inspect}"
         end
-        puts "#{prefix}#{path.map{|p| "[#{p.inspect}]"}.join('')} = #{value.inspect}"
       else
         puts "#{prefix}#{path.map{|p| "[#{p.inspect}]"}.join('')} = #{value.inspect}"
       end
     end
 
 
-    def self.convert(json={})
+    def self.convert(opts = {})
+      json = opts[:json] ? opts[:json] : fail("You must pass some JSON in :json opt")
+      cli  = opts[:cli]  ? opts[:cli]  : fail("You must pass the CLI in :cli opt")
       role = Chef::JSONCompat.from_json(json)
 
       rl = role.run_list
       da = role.default_attributes
       oa = role.override_attributes
 
-      convert_attr(da)
-      #convert_attr(oa, "override")
+      convert_attr(cli: cli, value: da)
+      convert_attr(cli: cli, value: oa, prefix: "override")
     end
 
 
