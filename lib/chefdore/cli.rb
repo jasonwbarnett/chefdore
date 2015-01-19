@@ -13,19 +13,12 @@ module Chefdore
       stdin = ARGF.read
 
       begin
-        json = JSON.parse(stdin)
+        Chefdore::Magic.convert(stdin)
       rescue JSON::ParserError => e
         puts e.message
         exit 1
       end
 
-      toa = %w(default_attributes override_attributes)
-
-      toa.each do |type|
-        attr = json[type]
-        prefix = type.split('_').first
-        Chefdore::Magic.convert(attr, prefix)
-      end
     end
 
     desc "version", "Display version information"
