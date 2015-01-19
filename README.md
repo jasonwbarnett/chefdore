@@ -80,7 +80,14 @@ $ knife role show example_role --format json
   },
   "chef_type": "role",
   "run_list": [
-
+    "recipe[osops-utils::packages]",
+    "recipe[osops-utils::nf_conntrack_max]",
+    "recipe[osops-utils::vhost_net]",
+    "recipe[openssh]",
+    "recipe[ntp]",
+    "recipe[rsyslog::default]",
+    "recipe[hardware]",
+    "recipe[osops-utils::version]"
   ],
   "env_run_lists": {
 
@@ -96,7 +103,6 @@ override["developer_mode"] = false
 override["monitoring"]["metric_provider"] = "collectd"
 override["monitoring"]["procmon_provider"] = "monit"
 override["glance"]["image_upload"] = true
-override["glance"]["images"] = ["cirros", "precise"]
 override["glance"]["images"] = ["cirros", "precise"]
 override["nova"]["ratelimit"]["api"]["enabled"] = true
 override["nova"]["ratelimit"]["volume"]["enabled"] = true
@@ -119,6 +125,14 @@ override["osops_networks"]["nova"] = "192.168.1.0/24"
 override["osops_networks"]["public"] = "192.168.1.0/24"
 override["osops_networks"]["management"] = "192.168.1.0/24"
 override["package_component"] = "folsom"
+include_recipe "osops-utils::packages"
+include_recipe "osops-utils::nf_conntrack_max"
+include_recipe "osops-utils::vhost_net"
+include_recipe "openssh"
+include_recipe "ntp"
+include_recipe "rsyslog::default"
+include_recipe "hardware"
+include_recipe "osops-utils::version"
 ```
 
 It outputs exactly what should be dropped into your new Chef Cookbook attributes file.
