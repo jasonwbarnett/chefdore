@@ -4,23 +4,11 @@ Chef tool that was named after Dumbledore.
 
 ## Installation
 
-Add this line to your application's Gemfile:
-
-```ruby
-gem 'chefdore'
-```
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
     $ gem install chefdore
 
 ## Usage
 
-TODO: Write usage instructions here
+    knife role show base --format json | chefdore convert
 
 ## Contributing
 
