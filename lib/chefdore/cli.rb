@@ -7,8 +7,8 @@ module Chefdore
     namespace "chefdore"
     map %w(v V -v -V ver --version) => :version
 
-    desc "role", "Convert Chef role to a Chef cookbook. Expects the json formatted Chef Role to be piped to this command."
-    def role
+    desc "convert", "Convert Chef role to a Chef cookbook. Expects the json formatted Chef Role to be piped to this command."
+    def convert
       ARGV.replace []
       stdin = ARGF.read
 
