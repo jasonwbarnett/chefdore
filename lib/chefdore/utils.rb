@@ -5,6 +5,16 @@ module Chefdore
   class Magic
 
 
+    def self.convert_run_list(opts = {})
+      rl  = opts[:run_list] ? opts[:run_list] : []
+      cli = opts[:cli]      ? opts[:cli]      : Chefdore::Cli.new
+
+      rl.recipes.each do |x|
+        puts "include_recipe #{x.inspect}"
+      end
+    end
+
+
     def self.convert_attr(opts = {})
       value  = opts[:value]
       prefix = opts[:prefix] ? opts[:prefix] : "default"
@@ -31,14 +41,16 @@ module Chefdore
     def self.convert(opts = {})
       json = opts[:json] ? opts[:json] : fail("You must pass some JSON in :json opt")
       cli  = opts[:cli]  ? opts[:cli]  : fail("You must pass the CLI in :cli opt")
-      role = Chef::JSONCompat.from_json(json)
+      klass = Chef::JSONCompat.from_json(json)
 
-      rl = role.run_list
-      da = role.default_attributes
-      oa = role.override_attributes
+      rl = klass.run_list
+      da = klass.default_attributes
+      oa = klass.override_attributes
 
       convert_attr(cli: cli, value: da)
       convert_attr(cli: cli, value: oa, prefix: "override")
+
+      convert_run_list(cli: cli, run_list: rl)
     end
 
 
