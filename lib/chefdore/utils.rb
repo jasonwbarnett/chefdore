@@ -10,11 +10,11 @@ module Chefdore
           if i.is_a?(Hash)
             convert(i, prefix, path)
           else
-            puts "#{prefix}#{path.map{|p| "['#{p}']"}.join('')} = #{value}"
+            puts "#{prefix}#{path.map{|p| "[#{p.inspect}]"}.join('')} = #{value.inspect}"
           end
         end
       else
-        puts "#{prefix}#{path.map{|p| "['#{p}']"}.join('')} = '#{value}'"
+        puts "#{prefix}#{path.map{|p| "[#{p.inspect}]"}.join('')} = #{value.inspect}"
       end
     end
   end
