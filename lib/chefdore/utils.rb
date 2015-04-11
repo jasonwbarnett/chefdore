@@ -21,9 +21,14 @@ module Chefdore
       path   = opts[:path]   ? opts[:path]   : []
       cli    = opts[:cli]    ? opts[:cli]    : Chefdore::Cli.new
 
-      #puts "INFO :: #{value.inspect} (#{value.class}) -- #{prefix} -- #{path}"
+      #puts "DEBUG :: #{prefix} -- #{path} -- #{value.inspect} (#{value.class})"
 
-      if value.is_a?(Hash)
+      if value.is_a?(Hash) and value.empty? and path.empty?
+        nil
+      elsif value.is_a?(Hash)
+        # This allows us to include empty hashes if one is found
+        puts "#{prefix}#{path.map{|p| "[#{p.inspect}]"}.join('')} = #{value.inspect}" if value.empty?
+
         value.each do |subkey, subval|
           convert_attr(opts.merge(value: subval, path: path+[subkey]))
         end
