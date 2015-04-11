@@ -1,6 +1,6 @@
 # Chefdore
 
-Chef tool that was named after Dumbledore.
+Chefdore is a Chef tool that was named after Dumbledore.
 
 I created this gem in order to help those who may want to convert Chef Roles to Chef Cookbooks.
 
