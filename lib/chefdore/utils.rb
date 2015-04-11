@@ -52,9 +52,15 @@ module Chefdore
       da = klass.default_attributes
       oa = klass.override_attributes
 
+      puts "## Place the following in your cookbook in attributes/default.rb"
       convert_attr(cli: cli, value: da)
-      convert_attr(cli: cli, value: oa, prefix: "override")
+      puts
 
+      puts "## Place the following in your cookbook in attributes/overrides.rb (optionally, you may place these in attributes/default.rb)"
+      convert_attr(cli: cli, value: oa, prefix: "override")
+      puts
+
+      puts "## Place the following your cookbook in recipes/default.rb"
       convert_run_list(cli: cli, run_list: rl)
     end
 
