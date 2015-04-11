@@ -109,7 +109,7 @@ $ knife role show example_role --format json | chefdore convert
 ## Place the following in your cookbook in attributes/default.rb
 default["ntp"]["servers"] = ["0.pool.ntp.org", "1.pool.ntp.org", "2.pool.ntp.org", "3.pool.ntp.org"]
 
-## Place the following in your cookbook in attributes/overrides.rb (optionally, you may place these in attributes/default.rb)
+## Place the following in your cookbook in attributes/overrides.rb (alternatively, you may place these in attributes/default.rb instead)
 override["developer_mode"] = false
 override["monitoring"]["metric_provider"] = "collectd"
 override["monitoring"]["procmon_provider"] = "monit"
@@ -137,7 +137,7 @@ override["osops_networks"]["public"] = "192.168.1.0/24"
 override["osops_networks"]["management"] = "192.168.1.0/24"
 override["package_component"] = "folsom"
 
-## Place the following your cookbook in recipes/default.rb
+## Place the following in your cookbook in recipes/default.rb
 include_recipe "osops-utils::packages"
 include_recipe "osops-utils::nf_conntrack_max"
 include_recipe "osops-utils::vhost_net"
